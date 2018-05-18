@@ -25,10 +25,11 @@ factor_mat = np.random.randn(10,5)
 cp_factor1 = factor_mat
 cp_factor2 = factor_mat
 cp_factor3 = factor_mat
+cp_factor4 = factor_mat
 #cp_factor1 = np.reshape(np.repeat(factor_mat[:,0],5), (10,5))
 #cp_factor2 = np.reshape(np.repeat(factor_mat[:,1],5), (10,5))
 #cp_factor3 = np.reshape(np.repeat(factor_mat[:,2],5), (10,5))
-component_factor = [cp_factor1, cp_factor2, cp_factor3]
+component_factor = [cp_factor1, cp_factor2, cp_factor3, cp_factor4]
 component_lambda = [1,1,1,1,1]
 cp_tensor = cpfactor2tensor(component_lambda, component_factor)
 #print('-----test_symmetric-----', np.linalg.norm(cp_tensor-cp_tensor.T))
@@ -57,6 +58,8 @@ print('----difference----', np.linalg.norm(Tr-T1))
 
 
 print('----- test orth_decomposition-----')
+print('----original tensor shape----', cp_tensor.shape)
+print('----orth_tensor shape----', cp_tensor_recover.shape)
 print('difference: {:.8}'. format(difference_cptensor))
 
 

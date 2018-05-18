@@ -3,7 +3,7 @@ from tensor_operations import *
 
 # Author: Kejun Tang
 
-# Date: 05/08/2018
+# Date: 05/17/2018
 
 
 
@@ -96,7 +96,7 @@ def orth_decomposition( T, reorthogonal=True, whitening=True, hopm=False ):
                 break
             
             if count_whitening > max_count_whitening:
-                print('maximal whitening iteration reached but whitening process failure...')
+                print('maximal whitening iteration {} reached but whitening process failure...' .format(max_count_whitening))
                 break
             #if C_mat is positive:
             #   break
@@ -116,7 +116,7 @@ def orth_decomposition( T, reorthogonal=True, whitening=True, hopm=False ):
         reduced_tensor = np.reshape(np.random.rand(rvector_len), reduced_shape, order='F')
         B_mat = np.tensordot(T, reduced_tensor, axes=(range(p)[2::], range(p-2))) 
         justify_symmetric_B = np.linalg.norm(B_mat-B_mat.T) < 1.0e-8
-        print('-----justify_symmetric_B-----', justify_symmetric_B) 
+        #print('-----justify_symmetric_B-----', justify_symmetric_B) 
         eig_val_B, eig_vec_B = np.linalg.eigh(B_mat)
         num_term = len(eig_val_B[abs(eig_val_B)>1.e-10])
         x_mat = np.zeros((length, num_term))
@@ -133,7 +133,7 @@ def orth_decomposition( T, reorthogonal=True, whitening=True, hopm=False ):
             component_lambda.append(lam)
             x_mat[:, j] = x
 
-        for k in range(len(component_lambda)):
+        for k in range(p):
             component_factor.append(x_mat)
  
     return component_factor, component_lambda
